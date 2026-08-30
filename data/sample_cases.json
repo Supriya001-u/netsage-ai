@@ -1,0 +1,476 @@
+[
+  {
+    "case_id": "CASE-001",
+    "symptom": "PC-A (VLAN 10, Sales) cannot ping PC-B (VLAN 10, Sales) even though both are on the same access switch SW1.",
+    "topology_note": "SW1 Fa0/1 -> PC-A, SW1 Fa0/2 -> PC-B. Both ports are intended to be access ports for VLAN 10, but Fa0/2 may be incorrectly assigned to another VLAN. Verify the interface VLAN configuration.",
+    "show_outputs": {
+      "show vlan brief": "VLAN Name                             Status    Ports\n---- -------------------------------- --------- -------------------------------\n1    default                          active    Fa0/3, Fa0/4\n10   Sales                             active    Fa0/1\n20   Engineering                       active    Fa0/5, Fa0/6",
+      "show running-config": "interface FastEthernet0/1\n switchport mode access\n switchport access vlan 10\n!\ninterface FastEthernet0/2\n switchport mode access\n switchport access vlan 20"
+    },
+    "expected_fault": "Fa0/2 was configured for VLAN 20 instead of VLAN 10, so PC-A and PC-B are on different broadcast domains.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "VLAN membership / access port misconfiguration",
+    "severity": "Medium",
+    "category": "vlan"
+  },
+  {
+    "case_id": "CASE-002",
+    "symptom": "All hosts on VLAN 30 (Server farm) lost connectivity to VLAN 10 and VLAN 20 at the same time, but hosts within VLAN 30 can still reach each other.",
+    "topology_note": "SW1 Gi0/1 is the trunk link to the distribution switch SW-DIST. SW1 hosts VLAN 10, 20 and 30 access ports.",
+    "show_outputs": {
+      "show interfaces trunk": "Port        Mode         Encapsulation  Status        Native vlan\nGi0/1       auto         n-802.1q       trunking      1\n\nPort        Vlans allowed on trunk\nGi0/1       10,20",
+      "show vlan brief": "VLAN Name                             Status    Ports\n---- -------------------------------- --------- -------------------------------\n10   Sales                             active    Fa0/1\n20   Engineering                       active    Fa0/5\n30   Servers                            active    Fa0/10"
+    },
+    "expected_fault": "VLAN 30 is missing from the allowed VLAN list on trunk Gi0/1, so its traffic is being pruned at the trunk instead of forwarded upstream.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "Trunk allowed-VLAN misconfiguration",
+    "severity": "High",
+    "category": "vlan"
+  },
+  {
+    "case_id": "CASE-003",
+    "symptom": "A newly added PC on Fa0/8 gets no VLAN connectivity at all and cannot obtain an IP address.",
+    "topology_note": "Fa0/8 was patched in today for a temporary contractor laptop.",
+    "show_outputs": {
+      "show vlan brief": "VLAN Name                             Status    Ports\n---- -------------------------------- --------- -------------------------------\n1    default                          active    Fa0/2, Fa0/3, Fa0/4\n10   Sales                             active    Fa0/1\n40   Guest                              active    (no ports assigned)",
+      "show running-config": "interface FastEthernet0/8\n switchport mode access\n switchport access vlan 40"
+    },
+    "expected_fault": "Fa0/8 is assigned to VLAN 40, but VLAN 40 does not exist in the VLAN database, so the port cannot forward traffic for that VLAN.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "Missing / undefined VLAN",
+    "severity": "Medium",
+    "category": "vlan"
+  },
+  {
+    "case_id": "CASE-004",
+    "symptom": "Two switches SW1 and SW2 are directly connected, but hosts in VLAN 10 on SW2 cannot reach VLAN 10 hosts on SW1.",
+    "topology_note": "SW1 Gi0/2 <-> SW2 Gi0/1 is meant to be an 802.1q trunk carrying VLAN 10 and VLAN 20.",
+    "show_outputs": {
+      "show interfaces trunk": "-- no interfaces are currently in trunking mode --",
+      "show running-config": "interface GigabitEthernet0/2\n switchport mode access\n switchport access vlan 10"
+    },
+    "expected_fault": "Gi0/2 on SW1 was left as an access port for VLAN 10 instead of being configured as a trunk, so VLAN 20 traffic between the switches is dropped and VLAN 10 depends entirely on native/access behaviour.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "Trunk not formed (access port used for inter-switch link)",
+    "severity": "High",
+    "category": "vlan"
+  },
+  {
+    "case_id": "CASE-005",
+    "symptom": "PC-C in VLAN 10 can reach the default gateway but cannot reach PC-D, also in VLAN 10 on the same switch.",
+    "topology_note": "SW1 Fa0/1 -> PC-C, SW1 Fa0/4 -> PC-D. Both configured as access ports for VLAN 10.",
+    "show_outputs": {
+      "show vlan brief": "VLAN Name                             Status    Ports\n---- -------------------------------- --------- -------------------------------\n10   Sales                             active    Fa0/1, Fa0/4",
+      "show interfaces status": "Port      Name               Status       Vlan       Duplex  Speed\nFa0/1     PC-C               connected    10         a-full  a-100\nFa0/4     PC-D               err-disabled 10         a-full  a-100"
+    },
+    "expected_fault": "Fa0/4 has been placed into err-disabled state (likely by port security or a storm-control violation), so PC-D is physically isolated from the VLAN even though its configuration looks correct.",
+    "osi_layer": "Layer 1/2 (Physical / Data Link)",
+    "concept": "Err-disabled port",
+    "severity": "Medium",
+    "category": "vlan"
+  },
+  {
+    "case_id": "CASE-006",
+    "symptom": "An internal web server is unreachable from the Internet on its public IP (203.0.113.10), even though internal clients can reach the server fine on its private address and NAT shows active translations for other traffic.",
+    "topology_note": "R1 uses a static NAT entry to publish the web server: public 203.0.113.10 maps to the server's internal address. The server was rebuilt on new hardware two weeks ago.",
+    "show_outputs": {
+      "show running-config (nat)": "ip nat inside source static 192.168.10.20 203.0.113.10\n!\ninterface GigabitEthernet0/0.10\n ip address 192.168.10.1 255.255.255.0\n ip nat inside\n!\ninterface GigabitEthernet0/1\n ip address 203.0.113.5 255.255.255.252\n ip nat outside",
+      "show ip dhcp binding": "IP address       Client-ID/Hardware address    Lease expiration        Type\n192.168.10.30    0100.5079.6845.ab             Infinite                 Manual",
+      "change record note": "2026-08-10: WEBSVR1 rebuilt on new hardware, re-IP'd to 192.168.10.30 (previously 192.168.10.20). DNS and internal firewall rules were updated; NAT was not."
+    },
+    "expected_fault": "The static NAT entry still maps public 203.0.113.10 to the server's old internal address (192.168.10.20). The server was re-IP'd to 192.168.10.30 during a rebuild, so inbound translated traffic is now sent to an address nothing is listening on.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Static NAT entry pointing to a stale internal IP after a server change",
+    "severity": "High",
+    "category": "nat"
+  },
+  {
+    "case_id": "CASE-007",
+    "symptom": "PC-E (192.168.10.15/24) can ping other hosts on its own subnet but cannot reach anything outside VLAN 10, including the router.",
+    "topology_note": "PC-E is on VLAN 10, gateway should be R1's sub-interface 192.168.10.1.",
+    "show_outputs": {
+      "PC-E ipconfig": "IPv4 Address. . . . . . . . . . : 192.168.10.15\nSubnet Mask . . . . . . . . . . : 255.255.255.0\nDefault Gateway . . . . . . . . : 192.168.10.254",
+      "show ip interface brief (R1)": "Interface              IP-Address      OK? Method Status                Protocol\nGigabitEthernet0/0.10  192.168.10.1    YES manual up                    up"
+    },
+    "expected_fault": "PC-E's configured default gateway (192.168.10.254) does not match the router's actual sub-interface address (192.168.10.1), so off-subnet traffic has nowhere to go.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Default gateway mismatch",
+    "severity": "High",
+    "category": "gateway"
+  },
+  {
+    "case_id": "CASE-008",
+    "symptom": "All PCs on VLAN 20 lost access to every other network at the same time; local VLAN 20 communication still works.",
+    "topology_note": "R1 sub-interface Gi0/0.20 is the gateway for VLAN 20 (192.168.20.1/24).",
+    "show_outputs": {
+      "show ip interface brief (R1)": "Interface              IP-Address      OK? Method Status                    Protocol\nGigabitEthernet0/0.20  192.168.20.1    YES manual administratively down     down"
+    },
+    "expected_fault": "Sub-interface Gi0/0.20 is administratively down, so the gateway for VLAN 20 is completely unreachable even though the IP address itself is configured correctly.",
+    "osi_layer": "Layer 1/3 (Physical / Network)",
+    "concept": "Gateway interface administratively down",
+    "severity": "Critical",
+    "category": "gateway"
+  },
+  {
+    "case_id": "CASE-009",
+    "symptom": "A single PC (192.168.30.22) cannot reach the gateway while every other PC on the same VLAN can.",
+    "topology_note": "VLAN 30 subnet is 192.168.30.0/24, gateway 192.168.30.1.",
+    "show_outputs": {
+      "PC ipconfig": "IPv4 Address. . . . . . . . . . : 192.168.30.22\nSubnet Mask . . . . . . . . . . : 255.255.255.128\nDefault Gateway . . . . . . . . : 192.168.30.1"
+    },
+    "expected_fault": "This PC's subnet mask (255.255.255.128 / /25) does not match the rest of VLAN 30 (/24), placing it in a different calculated subnet than the gateway even though the gateway IP is typed correctly.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Incorrect subnet mask",
+    "severity": "Medium",
+    "category": "gateway"
+  },
+  {
+    "case_id": "CASE-010",
+    "symptom": "Branch office PCs can reach their local gateway and local servers but cannot reach the HQ subnet 10.10.0.0/16.",
+    "topology_note": "Branch router R2 connects to HQ over a serial WAN link that is up.",
+    "show_outputs": {
+      "show ip route (R2)": "Gateway of last resort is not set\n\n     172.16.0.0/24 is subnetted, 1 subnets\nC       172.16.5.0 is directly connected, Serial0/0/0\n     192.168.40.0/24 is subnetted, 1 subnets\nC       192.168.40.0 is directly connected, GigabitEthernet0/0"
+    },
+    "expected_fault": "There is no route to 10.10.0.0/16 (static or via a routing protocol) in R2's routing table, so the branch simply does not know how to reach HQ even though the physical WAN link is up.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Missing route to remote network",
+    "severity": "High",
+    "category": "gateway"
+  },
+  {
+    "case_id": "CASE-011",
+    "symptom": "A newly connected PC in VLAN 10 receives a 169.254.x.x address instead of an address from the expected 192.168.10.0/24 pool.",
+    "topology_note": "R1 is configured as the DHCP server for VLAN 10 using an ip helper-address is not required since R1 is directly attached.",
+    "show_outputs": {
+      "show running-config (R1)": "ip dhcp pool VLAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 8.8.8.8\n!\ninterface GigabitEthernet0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n shutdown"
+    },
+    "expected_fault": "The DHCPDISCOVER never reaches the server because sub-interface Gi0/0.10 is administratively shut down, so the PC times out and self-assigns an APIPA address.",
+    "osi_layer": "Layer 1/3 (Physical / Network)",
+    "concept": "DHCP unreachable due to shutdown gateway interface",
+    "severity": "High",
+    "category": "dhcp"
+  },
+  {
+    "case_id": "CASE-012",
+    "symptom": "Most PCs in VLAN 20 get an IP address normally, but the last few PCs that boot up each morning fail to get a lease.",
+    "topology_note": "VLAN 20 has roughly 40 hosts that all power on around the same time.",
+    "show_outputs": {
+      "show ip dhcp pool VLAN20": "Pool VLAN20 :\n Network: 192.168.20.0 mask 255.255.255.0\n Leased addresses       : 30\n Excluded addresses     : 5   (192.168.20.1 - 192.168.20.5)\n Total addresses        : 30\n Pending event          : none"
+    },
+    "expected_fault": "The pool only has 30 usable addresses (254 minus exclusions minus a pool sized too small for the subnet), and all 30 are already leased, so late-booting hosts cannot obtain an address \u2014 this is pool exhaustion, not a reachability problem.",
+    "osi_layer": "Layer 3 (Network) / Application (DHCP service)",
+    "concept": "DHCP pool exhaustion",
+    "severity": "Medium",
+    "category": "dhcp"
+  },
+  {
+    "case_id": "CASE-013",
+    "symptom": "PCs in VLAN 30 receive an IP address, subnet mask and gateway, but the gateway address handed out is on a completely different subnet than the PCs themselves.",
+    "topology_note": "VLAN 30 subnet is 192.168.30.0/24.",
+    "show_outputs": {
+      "show running-config (R1)": "ip dhcp pool VLAN30\n network 192.168.30.0 255.255.255.0\n default-router 192.168.31.1\n dns-server 8.8.8.8"
+    },
+    "expected_fault": "The DHCP pool's default-router (192.168.31.1) is outside the 192.168.30.0/24 network it serves, so clients receive an unreachable gateway even though they get a valid IP/mask.",
+    "osi_layer": "Layer 3 (Network) / Application (DHCP service)",
+    "concept": "Incorrect DHCP default-router / network mismatch",
+    "severity": "High",
+    "category": "dhcp"
+  },
+  {
+    "case_id": "CASE-014",
+    "symptom": "No PC in the newly created VLAN 60 (Warehouse) can obtain an IP address; every device shows an APIPA address.",
+    "topology_note": "VLAN 60 was added to the switch and router sub-interface this week.",
+    "show_outputs": {
+      "show running-config (R1)": "interface GigabitEthernet0/0.60\n encapsulation dot1Q 60\n ip address 192.168.60.1 255.255.255.0\n!\nip dhcp pool VLAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1"
+    },
+    "expected_fault": "There is no DHCP pool defined for the 192.168.60.0/24 network at all (only VLAN10's pool exists), so VLAN 60 clients have no server to answer their requests.",
+    "osi_layer": "Application (DHCP service)",
+    "concept": "Missing DHCP pool for new VLAN",
+    "severity": "High",
+    "category": "dhcp"
+  },
+  {
+    "case_id": "CASE-015",
+    "symptom": "A PC that used to work fine now shows an IP address that conflicts with an existing server, and both devices report intermittent connectivity.",
+    "topology_note": "Server-SVR1 has a static IP of 192.168.10.50. PC-F is DHCP-assigned.",
+    "show_outputs": {
+      "PC-F ipconfig": "IPv4 Address. . . . . . . . . . : 192.168.10.50\nSubnet Mask . . . . . . . . . . : 255.255.255.0",
+      "show ip dhcp pool VLAN10": "Pool VLAN10 :\n Network: 192.168.10.0 mask 255.255.255.0\n Excluded addresses     : none configured"
+    },
+    "expected_fault": "192.168.10.50 was never excluded from the DHCP pool even though it is statically assigned to SVR1, so DHCP eventually leased that same address to PC-F, creating a duplicate IP conflict.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Duplicate IP address (missing DHCP exclusion)",
+    "severity": "Critical",
+    "category": "dhcp"
+  },
+  {
+    "case_id": "CASE-016",
+    "symptom": "PCs can ping 8.8.8.8 successfully but cannot open any website by name, and 'ping www.google.com' fails with 'Ping request could not find host'.",
+    "topology_note": "PCs receive DNS server address via DHCP from R1.",
+    "show_outputs": {
+      "show running-config (R1)": "ip dhcp pool VLAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 192.168.10.1",
+      "PC nslookup": "*** 192.168.10.1 can't find www.google.com: Server failed"
+    },
+    "expected_fault": "The DHCP pool hands out the router's own interface (192.168.10.1) as the DNS server, but R1 is not actually configured as a DNS server/forwarder, so name resolution fails even though basic IP connectivity is fine.",
+    "osi_layer": "Application (Layer 7)",
+    "concept": "Invalid / non-functional DNS server address",
+    "severity": "Medium",
+    "category": "dns"
+  },
+  {
+    "case_id": "CASE-017",
+    "symptom": "One department (VLAN 20) cannot resolve internal hostnames like 'fileserver.corp.local', while VLAN 10 resolves the same name fine.",
+    "topology_note": "Both VLANs are supposed to use the internal DNS server at 10.10.10.53.",
+    "show_outputs": {
+      "show running-config (R1)": "ip dhcp pool VLAN10\n dns-server 10.10.10.53\n!\nip dhcp pool VLAN20\n dns-server 8.8.8.8"
+    },
+    "expected_fault": "VLAN 20's DHCP pool points clients to a public DNS server (8.8.8.8) instead of the internal DNS server (10.10.10.53), so it cannot resolve internal-only hostnames.",
+    "osi_layer": "Application (Layer 7)",
+    "concept": "Wrong DNS server for internal name resolution",
+    "severity": "Low",
+    "category": "dns"
+  },
+  {
+    "case_id": "CASE-018",
+    "symptom": "Every device across the whole network suddenly cannot resolve any hostname, but IP connectivity to every internal and external address still works.",
+    "topology_note": "10.10.10.53 is the sole internal DNS server used by all VLANs.",
+    "show_outputs": {
+      "ping 10.10.10.53": "Request timed out.\nRequest timed out.\nRequest timed out.\nRequest timed out.\n\nPacket Loss = 100%",
+      "show ip interface brief (DNS-SVR)": "Interface       IP-Address      OK? Method Status                Protocol\nFastEthernet0   10.10.10.53     YES manual administratively down down"
+    },
+    "expected_fault": "The DNS server's own network interface has been administratively shut down, taking the single point of failure DNS service offline for the entire network while routing between other hosts is unaffected.",
+    "osi_layer": "Application (Layer 7) / Layer 1 (Physical)",
+    "concept": "DNS server unreachable (interface down)",
+    "severity": "Critical",
+    "category": "dns"
+  },
+  {
+    "case_id": "CASE-019",
+    "symptom": "A specific PC cannot resolve any hostname while every other PC on the same VLAN resolves names normally.",
+    "topology_note": "All PCs on VLAN 10 are DHCP clients of R1.",
+    "show_outputs": {
+      "PC ipconfig": "IPv4 Address. . . . . . . . . . : 192.168.10.44\nSubnet Mask . . . . . . . . . . : 255.255.255.0\nDefault Gateway . . . . . . . . : 192.168.10.1\nDNS Servers . . . . . . . . . . : 0.0.0.0"
+    },
+    "expected_fault": "This PC was manually configured with a static DNS server of 0.0.0.0 (overriding DHCP), which is not a valid resolver address, unlike the rest of the VLAN which uses the DHCP-assigned DNS server.",
+    "osi_layer": "Application (Layer 7)",
+    "concept": "Invalid statically-configured DNS server on a single host",
+    "severity": "Low",
+    "category": "dns"
+  },
+  {
+    "case_id": "CASE-020",
+    "symptom": "R1 (HQ) and R2 (Branch) are connected over a serial link that shows 'up/up', but PCs behind R2 cannot reach PCs behind R1.",
+    "topology_note": "Both routers run OSPF area 0 on all links.",
+    "show_outputs": {
+      "show ip route (R1)": "Gateway of last resort is not set\n\nC    192.168.10.0/24 is directly connected, GigabitEthernet0/0.10\nC    172.16.5.0/30 is directly connected, Serial0/0/0",
+      "show ip protocols (R1)": "Routing Protocol is \"ospf 1\"\n  Routing for Networks:\n    192.168.10.0 0.0.0.255 area 0\n  (172.16.5.0/30 is not advertised into OSPF)"
+    },
+    "expected_fault": "The serial transit network 172.16.5.0/30 was never added to an OSPF network statement on R1, so OSPF never forms/advertises correctly across the link and R2's networks never appear in R1's routing table.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Missing OSPF network statement",
+    "severity": "High",
+    "category": "routing"
+  },
+  {
+    "case_id": "CASE-021",
+    "symptom": "PCs behind R2 can reach R1's directly connected networks, but cannot reach a newly added server subnet 192.168.99.0/24 behind R1.",
+    "topology_note": "192.168.99.0/24 was added to R1 today for a new server VLAN.",
+    "show_outputs": {
+      "show ip route (R2)": "C    172.16.5.0/30 is directly connected, Serial0/0/0\nO    192.168.10.0/24 [110/65] via 172.16.5.1, Serial0/0/0\n     -- no entry for 192.168.99.0/24 --",
+      "show run | section router ospf (R1)": "router ospf 1\n network 192.168.10.0 0.0.0.255 area 0\n network 172.16.5.0 0.0.0.3 area 0"
+    },
+    "expected_fault": "192.168.99.0/24 was never added to R1's OSPF network statements, so OSPF is not advertising the new server subnet to R2 even though the interface itself is up.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "New subnet not redistributed/advertised into routing protocol",
+    "severity": "Medium",
+    "category": "routing"
+  },
+  {
+    "case_id": "CASE-022",
+    "symptom": "A static default route was configured, but the branch router still cannot reach the Internet even though its ISP-facing interface is up.",
+    "topology_note": "R2 Gi0/1 connects to the ISP router at 203.0.113.1.",
+    "show_outputs": {
+      "show ip route (R2)": "S*   0.0.0.0/0 [1/0] via 203.0.113.254\nC    203.0.113.0/30 is directly connected, GigabitEthernet0/1"
+    },
+    "expected_fault": "The static default route points to next-hop 203.0.113.254, which is outside the 203.0.113.0/30 directly connected subnet, so the next hop is unreachable and the default route can never be used.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Static route with unreachable next hop",
+    "severity": "High",
+    "category": "routing"
+  },
+  {
+    "case_id": "CASE-023",
+    "symptom": "Two networks that used to route fine now show intermittent packet loss, and traceroute shows packets bouncing between R1 and R3.",
+    "topology_note": "R1 and R3 both have static routes to 192.168.50.0/24 pointing at each other.",
+    "show_outputs": {
+      "show ip route (R1)": "S    192.168.50.0/24 [1/0] via 172.16.1.2 (R3)",
+      "show ip route (R3)": "S    192.168.50.0/24 [1/0] via 172.16.1.1 (R1)"
+    },
+    "expected_fault": "Both R1 and R3 have a static route for 192.168.50.0/24 pointing at each other instead of at the actual subnet owner, creating a routing loop that produces the observed intermittent loss.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Routing loop from misconfigured static routes",
+    "severity": "High",
+    "category": "routing"
+  },
+  {
+    "case_id": "CASE-024",
+    "symptom": "After a firmware update, R1 no longer forwards any traffic between VLAN 10 and VLAN 20, even though both sub-interfaces show up/up.",
+    "topology_note": "R1 previously routed between VLAN 10 (192.168.10.0/24) and VLAN 20 (192.168.20.0/24) using router-on-a-stick.",
+    "show_outputs": {
+      "show ip interface brief (R1)": "Interface              IP-Address      OK? Method Status  Protocol\nGigabitEthernet0/0     unassigned      YES unset  up      up\nGigabitEthernet0/0.10  192.168.10.1    YES manual up      up\nGigabitEthernet0/0.20  192.168.20.1    YES manual up      up",
+      "show ip route (R1)": "-- routing table is empty --"
+    },
+    "expected_fault": "The routing table is completely empty even though both sub-interfaces are up \u2014 the running-config confirms 'no ip routing' was applied during the firmware update, disabling Layer 3 forwarding on the router entirely.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "IP routing disabled on router",
+    "severity": "Critical",
+    "category": "routing"
+  },
+  {
+    "case_id": "CASE-025",
+    "symptom": "PC gets an IP address and can ping its gateway, but cannot reach the file server SVR1 (192.168.30.50) in VLAN 30, while other VLANs can.",
+    "topology_note": "VLAN 30 hosts the server subnet, protected by an inbound ACL on R1's Gi0/0.30 sub-interface.",
+    "show_outputs": {
+      "show access-lists": "Extended IP access list SERVER_ACL\n    10 permit tcp 192.168.20.0 0.0.0.255 host 192.168.30.50 eq 80\n    20 deny ip 192.168.10.0 0.0.0.255 host 192.168.30.50\n    30 permit ip any any",
+      "show running-config (R1, interface)": "interface GigabitEthernet0/0.30\n ip access-group SERVER_ACL in"
+    },
+    "expected_fault": "ACL entry 20 explicitly denies all traffic from the 192.168.10.0/24 (VLAN 10) subnet to SVR1, while VLAN 20 is only permitted for HTTP \u2014 the reporting PC is on VLAN 10 and is being blocked by this explicit deny statement.",
+    "osi_layer": "Layer 3/4 (Network/Transport)",
+    "concept": "ACL explicit deny blocking legitimate traffic",
+    "severity": "High",
+    "category": "acl"
+  },
+  {
+    "case_id": "CASE-026",
+    "symptom": "Remote management via SSH to R1 stopped working from the admin subnet, but SSH still works from every other subnet.",
+    "topology_note": "192.168.99.0/24 is the dedicated admin/management subnet.",
+    "show_outputs": {
+      "show access-lists": "Standard IP access list VTY_ACCESS\n    10 deny   192.168.99.0 0.0.0.255\n    20 permit any",
+      "show running-config (line vty)": "line vty 0 4\n access-class VTY_ACCESS in\n transport input ssh"
+    },
+    "expected_fault": "The VTY access-class explicitly denies the admin subnet (192.168.99.0/24) before the permit-any statement, so ironically the one subnet that should manage the router is blocked from doing so.",
+    "osi_layer": "Layer 3/4 (Network/Transport) / Application (SSH)",
+    "concept": "ACL misconfiguration on VTY lines",
+    "severity": "High",
+    "category": "acl"
+  },
+  {
+    "case_id": "CASE-027",
+    "symptom": "Web traffic from VLAN 10 to the Internet works, but FTP to an internal FTP server in VLAN 30 fails only for VLAN 10.",
+    "topology_note": "FTP_ACL is applied on R1 Gi0/0.30 sub-interface protecting the FTP server 192.168.30.60.",
+    "show_outputs": {
+      "show access-lists": "Extended IP access list FTP_ACL\n    10 permit tcp any host 192.168.30.60 eq 80"
+    },
+    "expected_fault": "FTP_ACL only permits TCP port 80 (HTTP) to the server, but never explicitly permits TCP ports 20/21 (FTP), and there is no trailing 'permit ip any any' \u2014 the implicit deny at the end of the ACL is blocking FTP traffic.",
+    "osi_layer": "Layer 4 (Transport)",
+    "concept": "ACL missing required port permit (implicit deny)",
+    "severity": "Medium",
+    "category": "acl"
+  },
+  {
+    "case_id": "CASE-028",
+    "symptom": "NAT is configured and the ISP link is up, but internal PCs still cannot browse the Internet \u2014 'show ip nat translations' shows no active translations.",
+    "topology_note": "R1 performs PAT (NAT overload) for 192.168.10.0/24 going out Gi0/1 (ISP).",
+    "show_outputs": {
+      "show access-lists": "Standard IP access list NAT_SRC\n    10 deny   192.168.10.0 0.0.0.255",
+      "show running-config (nat)": "ip nat inside source list NAT_SRC interface GigabitEthernet0/1 overload"
+    },
+    "expected_fault": "The ACL that defines which traffic NAT should translate (NAT_SRC) explicitly denies the 192.168.10.0/24 subnet, so NAT never matches and translates any of that subnet's traffic, even though NAT itself is enabled correctly.",
+    "osi_layer": "Layer 3/4 (Network/Transport)",
+    "concept": "ACL used by NAT denies the source traffic it should permit",
+    "severity": "High",
+    "category": "acl"
+  },
+  {
+    "case_id": "CASE-029",
+    "symptom": "PCs in VLAN 10 can ping R1's inside interface but cannot reach any Internet address; 'show ip nat translations' is completely empty.",
+    "topology_note": "R1 Gi0/0.10 is the inside interface, Gi0/1 connects to the ISP.",
+    "show_outputs": {
+      "show running-config (nat)": "ip nat inside source list 1 interface GigabitEthernet0/1 overload\n!\ninterface GigabitEthernet0/0.10\n ip address 192.168.10.1 255.255.255.0\n!\ninterface GigabitEthernet0/1\n ip address 203.0.113.5 255.255.255.252\naccess-list 1 permit 192.168.10.0 0.0.0.255"
+    },
+    "expected_fault": "Neither Gi0/0.10 nor Gi0/1 has been marked with 'ip nat inside' / 'ip nat outside', so even though the 'ip nat inside source' statement and ACL are correct, NAT never actually triggers on any interface.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "Missing ip nat inside/outside interface marking",
+    "severity": "High",
+    "category": "nat"
+  },
+  {
+    "case_id": "CASE-030",
+    "symptom": "Internet access worked yesterday but has stopped for all internal PCs today; 'show ip nat statistics' shows the translation count is stuck at the same number and not increasing.",
+    "topology_note": "R1 uses PAT overload out Gi0/1 to the ISP.",
+    "show_outputs": {
+      "show ip nat statistics": "Total active translations: 0 (0 static, 0 dynamic; 0 extended)\nOutside interfaces:\n  Serial0/0/1\nInside interfaces:\n  GigabitEthernet0/0.10"
+    },
+    "expected_fault": "The outside interface is listed as Serial0/0/1, but the actual ISP-facing interface in this topology is GigabitEthernet0/1 \u2014 'ip nat outside' was applied to the wrong (unused) interface, so translations never occur.",
+    "osi_layer": "Layer 3 (Network)",
+    "concept": "ip nat outside applied to the wrong interface",
+    "severity": "High",
+    "category": "nat"
+  },
+  {
+    "case_id": "CASE-031",
+    "symptom": "Internal PCs can reach some Internet sites but time out on others; 'show ip nat translations' shows entries that stop updating after a few minutes of heavy use.",
+    "topology_note": "R1 performs PAT overload using its single public IP for the whole 192.168.0.0/16 internal supernet.",
+    "show_outputs": {
+      "show ip nat statistics": "Total active translations: 4092 (0 static, 4092 dynamic; 4092 extended)\nHits: 88210  Misses: 512\nExpired translations: 3"
+    },
+    "expected_fault": "The single overload address has run out of available source ports (NAT port pool exhaustion) under heavy load from a /16 of internal hosts sharing one public IP, causing new sessions to intermittently fail while established ones continue to work.",
+    "osi_layer": "Layer 4 (Transport)",
+    "concept": "NAT overload port exhaustion",
+    "severity": "Medium",
+    "category": "nat"
+  },
+  {
+    "case_id": "CASE-032",
+    "symptom": "A laptop shows the corporate SSID 'CORP-WIFI' in its available network list but fails to associate, staying stuck at 'Connecting...'.",
+    "topology_note": "AP1 broadcasts CORP-WIFI using WPA2-PSK.",
+    "show_outputs": {
+      "show running-config (AP1)": "dot11 ssid CORP-WIFI\n authentication open\n authentication key-management wpa version 2\n wpa-psk ascii 0 CorpSecret2024"
+    },
+    "expected_fault": "The SSID mixes 'authentication open' with WPA2-PSK key management \u2014 this inconsistent security configuration causes clients configured for standard WPA2-Personal to fail the 4-way handshake and never fully associate.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "Inconsistent wireless security configuration",
+    "severity": "Medium",
+    "category": "wireless"
+  },
+  {
+    "case_id": "CASE-033",
+    "symptom": "All wireless clients on AP2 associate successfully and show 'Connected no internet' with a self-assigned 169.254.x.x address.",
+    "topology_note": "AP2 is configured as a bridge/access point onto VLAN 10, where R1's DHCP pool for VLAN 10 lives.",
+    "show_outputs": {
+      "show running-config (AP2)": "interface Dot11Radio0\n bridge-group 1\n!\ninterface GigabitEthernet0\n bridge-group 2"
+    },
+    "expected_fault": "The wireless radio interface is in bridge-group 1 while the wired uplink interface is in bridge-group 2 \u2014 the two are never bridged together, so wireless clients are isolated from the wired network and its DHCP server.",
+    "osi_layer": "Layer 2 (Data Link)",
+    "concept": "Bridge-group mismatch isolating wireless from wired network",
+    "severity": "High",
+    "category": "wireless"
+  },
+  {
+    "case_id": "CASE-034",
+    "symptom": "Wireless clients near AP3 experience frequent disconnects and very slow speeds, while clients near AP4 (same building) are fine.",
+    "topology_note": "AP3 and AP4 are both 2.4 GHz APs roughly 20 metres apart.",
+    "show_outputs": {
+      "show controllers Dot11Radio0 (AP3)": "Channel: 6",
+      "show controllers Dot11Radio0 (AP4)": "Channel: 6"
+    },
+    "expected_fault": "AP3 and AP4 are both operating on the same 2.4 GHz channel (6) with overlapping coverage, causing co-channel interference that degrades performance for clients near AP3, which sits closer to the overlap zone.",
+    "osi_layer": "Layer 1 (Physical)",
+    "concept": "Co-channel wireless interference",
+    "severity": "Low",
+    "category": "wireless"
+  },
+  {
+    "case_id": "CASE-035",
+    "symptom": "A visitor's device cannot see or connect to the 'GUEST-WIFI' SSID at all, even standing directly next to the access point.",
+    "topology_note": "AP5 is supposed to broadcast both CORP-WIFI and GUEST-WIFI.",
+    "show_outputs": {
+      "show running-config (AP5)": "dot11 ssid CORP-WIFI\n vlan 10\n authentication open\n!\ndot11 ssid GUEST-WIFI\n vlan 40\n authentication open\n guest-mode disabled"
+    },
+    "expected_fault": "GUEST-WIFI has 'guest-mode disabled', which means the SSID is configured but not being broadcast (it is a closed/hidden network), so it never appears in the visitor's scan list.",
+    "osi_layer": "Layer 1/2 (Physical / Data Link)",
+    "concept": "SSID broadcast disabled (guest-mode not enabled)",
+    "severity": "Low",
+    "category": "wireless"
+  }
+]

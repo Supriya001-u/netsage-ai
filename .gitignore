@@ -1,0 +1,24 @@
+# Python / venv
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/config.toml

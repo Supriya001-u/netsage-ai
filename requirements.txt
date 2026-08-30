@@ -1,0 +1,9 @@
+# Core application
+streamlit>=1.35
+pandas>=2.0
+
+# Only required when MOCK_MODE=false (live LLM calls)
+anthropic>=0.34
+
+# Testing
+pytest>=7.4

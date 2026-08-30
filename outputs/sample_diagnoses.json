@@ -1,0 +1,1895 @@
+[
+  {
+    "case_id": "CASE-001",
+    "diagnosis": {
+      "root_cause": "Fa0/2 was configured for VLAN 20 instead of VLAN 10, so PC-A and PC-B are on different broadcast domains.",
+      "confidence": 68,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "switchport access vlan 10",
+        "switchport access vlan 20"
+      ],
+      "next_command": "show vlan brief",
+      "fix_steps": [
+        "Confirm the intended VLAN assignment with the network design/topology document.",
+        "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+        "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+        "Have the affected host re-test connectivity."
+      ],
+      "severity": "Medium",
+      "concept": "VLAN membership / access port misconfiguration",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-001",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "Fa0/2 was configured for VLAN 20 instead of VLAN 10, so PC-A and PC-B are on different broadcast domains.",
+        "confidence": 68,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "switchport access vlan 10",
+          "switchport access vlan 20"
+        ],
+        "next_command": "show vlan brief",
+        "fix_steps": [
+          "Confirm the intended VLAN assignment with the network design/topology document.",
+          "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+          "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+          "Have the affected host re-test connectivity."
+        ],
+        "severity": "Medium",
+        "concept": "VLAN membership / access port misconfiguration",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "Fa0/2 was configured for VLAN 20 instead of VLAN 10, so PC-A and PC-B are on different broadcast domains.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "Fa0/2 was configured for VLAN 20 instead of VLAN 10, so PC-A and PC-B are on different broadcast domains."
+    }
+  },
+  {
+    "case_id": "CASE-002",
+    "diagnosis": {
+      "root_cause": "VLAN 30 is missing from the allowed VLAN list on trunk Gi0/1, so its traffic is being pruned at the trunk instead of forwarded upstream.",
+      "confidence": 89,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "Port        Vlans allowed on trunk",
+        "Gi0/1       auto         n-802.1q       trunking      1"
+      ],
+      "next_command": "show vlan brief",
+      "fix_steps": [
+        "Confirm the intended VLAN assignment with the network design/topology document.",
+        "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+        "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+        "Have the affected host re-test connectivity."
+      ],
+      "severity": "High",
+      "concept": "Trunk allowed-VLAN misconfiguration",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-002",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "VLAN 30 is missing from the allowed VLAN list on trunk Gi0/1, so its traffic is being pruned at the trunk instead of forwarded upstream.",
+        "confidence": 89,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "Port        Vlans allowed on trunk",
+          "Gi0/1       auto         n-802.1q       trunking      1"
+        ],
+        "next_command": "show vlan brief",
+        "fix_steps": [
+          "Confirm the intended VLAN assignment with the network design/topology document.",
+          "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+          "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+          "Have the affected host re-test connectivity."
+        ],
+        "severity": "High",
+        "concept": "Trunk allowed-VLAN misconfiguration",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "VLAN 30 is missing from the allowed VLAN list on trunk Gi0/1, so its traffic is being pruned at the trunk instead of forwarded upstream.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "VLAN 30 is missing from the allowed VLAN list on trunk Gi0/1, so its traffic is being pruned at the trunk instead of forwarded upstream."
+    }
+  },
+  {
+    "case_id": "CASE-003",
+    "diagnosis": {
+      "root_cause": "Fa0/8 is assigned to VLAN 40, but VLAN 40 does not exist in the VLAN database, so the port cannot forward traffic for that VLAN.",
+      "confidence": 68,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "switchport access vlan 40",
+        "---- -------------------------------- --------- -------------------------------"
+      ],
+      "next_command": "show vlan brief",
+      "fix_steps": [
+        "Confirm the intended VLAN assignment with the network design/topology document.",
+        "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+        "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+        "Have the affected host re-test connectivity."
+      ],
+      "severity": "Medium",
+      "concept": "Missing / undefined VLAN",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-003",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "Fa0/8 is assigned to VLAN 40, but VLAN 40 does not exist in the VLAN database, so the port cannot forward traffic for that VLAN.",
+        "confidence": 68,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "switchport access vlan 40",
+          "---- -------------------------------- --------- -------------------------------"
+        ],
+        "next_command": "show vlan brief",
+        "fix_steps": [
+          "Confirm the intended VLAN assignment with the network design/topology document.",
+          "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+          "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+          "Have the affected host re-test connectivity."
+        ],
+        "severity": "Medium",
+        "concept": "Missing / undefined VLAN",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "Fa0/8 is assigned to VLAN 40, but VLAN 40 does not exist in the VLAN database, so the port cannot forward traffic for that VLAN.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "Fa0/8 is assigned to VLAN 40, but VLAN 40 does not exist in the VLAN database, so the port cannot forward traffic for that VLAN."
+    }
+  },
+  {
+    "case_id": "CASE-004",
+    "diagnosis": {
+      "root_cause": "SW2's Gi0/1 access VLAN is mismatched with SW1's Gi0/2, causing the VLAN 10 outage.",
+      "confidence": 61,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "Gi0/2 on SW1 is an access port for VLAN 10; assumed SW2 side differs."
+      ],
+      "next_command": "show running-config interface Gi0/1 (on SW2)",
+      "fix_steps": [
+        "Set SW2's Gi0/1 access VLAN to match SW1's Gi0/2 (VLAN 10).",
+        "Verify VLAN 10 connectivity between the switches."
+      ],
+      "severity": "High",
+      "concept": "Possible VLAN mismatch between switches",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-004",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "SW2's Gi0/1 access VLAN is mismatched with SW1's Gi0/2, causing the VLAN 10 outage.",
+        "confidence": 61,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "Gi0/2 on SW1 is an access port for VLAN 10; assumed SW2 side differs."
+        ],
+        "next_command": "show running-config interface Gi0/1 (on SW2)",
+        "fix_steps": [
+          "Set SW2's Gi0/1 access VLAN to match SW1's Gi0/2 (VLAN 10).",
+          "Verify VLAN 10 connectivity between the switches."
+        ],
+        "severity": "High",
+        "concept": "Possible VLAN mismatch between switches",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "SW2's Gi0/1 access VLAN is mismatched with SW1's Gi0/2, causing the VLAN 10 outage.",
+      "ai_confidence": 61,
+      "reviewer_decision": "EDIT",
+      "corrected_diagnosis": "Gi0/2 on SW1 was left as an access port for VLAN 10 instead of being configured as a trunk, so VLAN 20 traffic between the switches is dropped and VLAN 10 depends entirely on native/access behaviour.",
+      "reviewer_comments": null,
+      "reason_for_correction": "Corrected against known evidence during batch validation run.",
+      "final_diagnosis": "Gi0/2 on SW1 was left as an access port for VLAN 10 instead of being configured as a trunk, so VLAN 20 traffic between the switches is dropped and VLAN 10 depends entirely on native/access behaviour."
+    }
+  },
+  {
+    "case_id": "CASE-005",
+    "diagnosis": {
+      "root_cause": "Fa0/4 has been placed into err-disabled state (likely by port security or a storm-control violation), so PC-D is physically isolated from the VLAN even though its configuration looks correct.",
+      "confidence": 89,
+      "osi_layer": "Layer 1/2 (Physical / Data Link)",
+      "evidence": [
+        "Fa0/4     PC-D               err-disabled 10         a-full  a-100",
+        "---- -------------------------------- --------- -------------------------------"
+      ],
+      "next_command": "show vlan brief",
+      "fix_steps": [
+        "Confirm the intended VLAN assignment with the network design/topology document.",
+        "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+        "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+        "Have the affected host re-test connectivity."
+      ],
+      "severity": "Medium",
+      "concept": "Err-disabled port",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-005",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "Fa0/4 has been placed into err-disabled state (likely by port security or a storm-control violation), so PC-D is physically isolated from the VLAN even though its configuration looks correct.",
+        "confidence": 89,
+        "osi_layer": "Layer 1/2 (Physical / Data Link)",
+        "evidence": [
+          "Fa0/4     PC-D               err-disabled 10         a-full  a-100",
+          "---- -------------------------------- --------- -------------------------------"
+        ],
+        "next_command": "show vlan brief",
+        "fix_steps": [
+          "Confirm the intended VLAN assignment with the network design/topology document.",
+          "Correct the access VLAN, trunk allowed-list, or VLAN database entry as needed.",
+          "Re-run 'show vlan brief' and 'show interfaces trunk' to confirm the change.",
+          "Have the affected host re-test connectivity."
+        ],
+        "severity": "Medium",
+        "concept": "Err-disabled port",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "Fa0/4 has been placed into err-disabled state (likely by port security or a storm-control violation), so PC-D is physically isolated from the VLAN even though its configuration looks correct.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "Fa0/4 has been placed into err-disabled state (likely by port security or a storm-control violation), so PC-D is physically isolated from the VLAN even though its configuration looks correct."
+    }
+  },
+  {
+    "case_id": "CASE-006",
+    "diagnosis": {
+      "root_cause": "The static NAT entry still maps public 203.0.113.10 to the server's old internal address (192.168.10.20). The server was re-IP'd to 192.168.10.30 during a rebuild, so inbound translated traffic is now sent to an address nothing is listening on.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "ip nat inside source static 192.168.10.20 203.0.113.10",
+        "!"
+      ],
+      "next_command": "show ip nat statistics",
+      "fix_steps": [
+        "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+        "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+        "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+        "Re-run 'show ip nat translations' to confirm active entries appear."
+      ],
+      "severity": "High",
+      "concept": "Static NAT entry pointing to a stale internal IP after a server change",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-006",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The static NAT entry still maps public 203.0.113.10 to the server's old internal address (192.168.10.20). The server was re-IP'd to 192.168.10.30 during a rebuild, so inbound translated traffic is now sent to an address nothing is listening on.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "ip nat inside source static 192.168.10.20 203.0.113.10",
+          "!"
+        ],
+        "next_command": "show ip nat statistics",
+        "fix_steps": [
+          "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+          "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+          "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+          "Re-run 'show ip nat translations' to confirm active entries appear."
+        ],
+        "severity": "High",
+        "concept": "Static NAT entry pointing to a stale internal IP after a server change",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The static NAT entry still maps public 203.0.113.10 to the server's old internal address (192.168.10.20). The server was re-IP'd to 192.168.10.30 during a rebuild, so inbound translated traffic is now sent to an address nothing is listening on.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The static NAT entry still maps public 203.0.113.10 to the server's old internal address (192.168.10.20). The server was re-IP'd to 192.168.10.30 during a rebuild, so inbound translated traffic is now sent to an address nothing is listening on."
+    }
+  },
+  {
+    "case_id": "CASE-007",
+    "diagnosis": {
+      "root_cause": "PC-E's configured default gateway (192.168.10.254) does not match the router's actual sub-interface address (192.168.10.1), so off-subnet traffic has nowhere to go.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "Default Gateway . . . . . . . . : 192.168.10.254",
+        "IPv4 Address. . . . . . . . . . : 192.168.10.15"
+      ],
+      "next_command": "show ip interface brief",
+      "fix_steps": [
+        "Verify the intended gateway IP address for this subnet against the design document.",
+        "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+        "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+        "Re-test off-subnet connectivity from an affected host."
+      ],
+      "severity": "High",
+      "concept": "Default gateway mismatch",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-007",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "PC-E's configured default gateway (192.168.10.254) does not match the router's actual sub-interface address (192.168.10.1), so off-subnet traffic has nowhere to go.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "Default Gateway . . . . . . . . : 192.168.10.254",
+          "IPv4 Address. . . . . . . . . . : 192.168.10.15"
+        ],
+        "next_command": "show ip interface brief",
+        "fix_steps": [
+          "Verify the intended gateway IP address for this subnet against the design document.",
+          "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+          "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+          "Re-test off-subnet connectivity from an affected host."
+        ],
+        "severity": "High",
+        "concept": "Default gateway mismatch",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "PC-E's configured default gateway (192.168.10.254) does not match the router's actual sub-interface address (192.168.10.1), so off-subnet traffic has nowhere to go.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "PC-E's configured default gateway (192.168.10.254) does not match the router's actual sub-interface address (192.168.10.1), so off-subnet traffic has nowhere to go."
+    }
+  },
+  {
+    "case_id": "CASE-008",
+    "diagnosis": {
+      "root_cause": "VLAN 20 clients cannot resolve DNS names, causing the reported loss of connectivity.",
+      "confidence": 55,
+      "osi_layer": "Application (Layer 7)",
+      "evidence": [
+        "Clients on VLAN 20 report being unable to reach other networks."
+      ],
+      "next_command": "nslookup from an affected VLAN 20 host",
+      "fix_steps": [
+        "Verify the DNS server address handed out to VLAN 20 clients.",
+        "Update the DHCP pool's dns-server entry if incorrect."
+      ],
+      "severity": "Medium",
+      "concept": "Possible DNS misconfiguration",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-008",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "VLAN 20 clients cannot resolve DNS names, causing the reported loss of connectivity.",
+        "confidence": 55,
+        "osi_layer": "Application (Layer 7)",
+        "evidence": [
+          "Clients on VLAN 20 report being unable to reach other networks."
+        ],
+        "next_command": "nslookup from an affected VLAN 20 host",
+        "fix_steps": [
+          "Verify the DNS server address handed out to VLAN 20 clients.",
+          "Update the DHCP pool's dns-server entry if incorrect."
+        ],
+        "severity": "Medium",
+        "concept": "Possible DNS misconfiguration",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "VLAN 20 clients cannot resolve DNS names, causing the reported loss of connectivity.",
+      "ai_confidence": 55,
+      "reviewer_decision": "EDIT",
+      "corrected_diagnosis": "Sub-interface Gi0/0.20 is administratively down, so the gateway for VLAN 20 is completely unreachable even though the IP address itself is configured correctly.",
+      "reviewer_comments": null,
+      "reason_for_correction": "Corrected against known evidence during batch validation run.",
+      "final_diagnosis": "Sub-interface Gi0/0.20 is administratively down, so the gateway for VLAN 20 is completely unreachable even though the IP address itself is configured correctly."
+    }
+  },
+  {
+    "case_id": "CASE-009",
+    "diagnosis": {
+      "root_cause": "This PC's subnet mask (255.255.255.128 / /25) does not match the rest of VLAN 30 (/24), placing it in a different calculated subnet than the gateway even though the gateway IP is typed correctly.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "Default Gateway . . . . . . . . : 192.168.30.1",
+        "IPv4 Address. . . . . . . . . . : 192.168.30.22"
+      ],
+      "next_command": "show ip interface brief",
+      "fix_steps": [
+        "Verify the intended gateway IP address for this subnet against the design document.",
+        "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+        "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+        "Re-test off-subnet connectivity from an affected host."
+      ],
+      "severity": "Medium",
+      "concept": "Incorrect subnet mask",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-009",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "This PC's subnet mask (255.255.255.128 / /25) does not match the rest of VLAN 30 (/24), placing it in a different calculated subnet than the gateway even though the gateway IP is typed correctly.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "Default Gateway . . . . . . . . : 192.168.30.1",
+          "IPv4 Address. . . . . . . . . . : 192.168.30.22"
+        ],
+        "next_command": "show ip interface brief",
+        "fix_steps": [
+          "Verify the intended gateway IP address for this subnet against the design document.",
+          "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+          "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+          "Re-test off-subnet connectivity from an affected host."
+        ],
+        "severity": "Medium",
+        "concept": "Incorrect subnet mask",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "This PC's subnet mask (255.255.255.128 / /25) does not match the rest of VLAN 30 (/24), placing it in a different calculated subnet than the gateway even though the gateway IP is typed correctly.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "This PC's subnet mask (255.255.255.128 / /25) does not match the rest of VLAN 30 (/24), placing it in a different calculated subnet than the gateway even though the gateway IP is typed correctly."
+    }
+  },
+  {
+    "case_id": "CASE-010",
+    "diagnosis": {
+      "root_cause": "There is no route to 10.10.0.0/16 (static or via a routing protocol) in R2's routing table, so the branch simply does not know how to reach HQ even though the physical WAN link is up.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "Gateway of last resort is not set",
+        "172.16.0.0/24 is subnetted, 1 subnets"
+      ],
+      "next_command": "show ip interface brief",
+      "fix_steps": [
+        "Verify the intended gateway IP address for this subnet against the design document.",
+        "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+        "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+        "Re-test off-subnet connectivity from an affected host."
+      ],
+      "severity": "High",
+      "concept": "Missing route to remote network",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-010",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "There is no route to 10.10.0.0/16 (static or via a routing protocol) in R2's routing table, so the branch simply does not know how to reach HQ even though the physical WAN link is up.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "Gateway of last resort is not set",
+          "172.16.0.0/24 is subnetted, 1 subnets"
+        ],
+        "next_command": "show ip interface brief",
+        "fix_steps": [
+          "Verify the intended gateway IP address for this subnet against the design document.",
+          "Correct the mismatched client configuration or bring up the gateway interface as needed.",
+          "Re-run 'show ip interface brief' to confirm the interface is up/up with the correct IP.",
+          "Re-test off-subnet connectivity from an affected host."
+        ],
+        "severity": "High",
+        "concept": "Missing route to remote network",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "There is no route to 10.10.0.0/16 (static or via a routing protocol) in R2's routing table, so the branch simply does not know how to reach HQ even though the physical WAN link is up.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "There is no route to 10.10.0.0/16 (static or via a routing protocol) in R2's routing table, so the branch simply does not know how to reach HQ even though the physical WAN link is up."
+    }
+  },
+  {
+    "case_id": "CASE-011",
+    "diagnosis": {
+      "root_cause": "The DHCPDISCOVER never reaches the server because sub-interface Gi0/0.10 is administratively shut down, so the PC times out and self-assigns an APIPA address.",
+      "confidence": 68,
+      "osi_layer": "Layer 1/3 (Physical / Network)",
+      "evidence": [
+        "default-router 192.168.10.1",
+        "ip dhcp pool VLAN10"
+      ],
+      "next_command": "show ip dhcp pool",
+      "fix_steps": [
+        "Review the DHCP pool's network, default-router, and exclusion configuration.",
+        "Correct the pool definition or add the missing pool for the affected subnet.",
+        "Release and renew a test client's lease to confirm the fix.",
+        "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+      ],
+      "severity": "High",
+      "concept": "DHCP unreachable due to shutdown gateway interface",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-011",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The DHCPDISCOVER never reaches the server because sub-interface Gi0/0.10 is administratively shut down, so the PC times out and self-assigns an APIPA address.",
+        "confidence": 68,
+        "osi_layer": "Layer 1/3 (Physical / Network)",
+        "evidence": [
+          "default-router 192.168.10.1",
+          "ip dhcp pool VLAN10"
+        ],
+        "next_command": "show ip dhcp pool",
+        "fix_steps": [
+          "Review the DHCP pool's network, default-router, and exclusion configuration.",
+          "Correct the pool definition or add the missing pool for the affected subnet.",
+          "Release and renew a test client's lease to confirm the fix.",
+          "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+        ],
+        "severity": "High",
+        "concept": "DHCP unreachable due to shutdown gateway interface",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The DHCPDISCOVER never reaches the server because sub-interface Gi0/0.10 is administratively shut down, so the PC times out and self-assigns an APIPA address.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The DHCPDISCOVER never reaches the server because sub-interface Gi0/0.10 is administratively shut down, so the PC times out and self-assigns an APIPA address."
+    }
+  },
+  {
+    "case_id": "CASE-012",
+    "diagnosis": {
+      "root_cause": "The DHCP server process on R1 has stopped responding to requests on VLAN 20.",
+      "confidence": 58,
+      "osi_layer": "Application (DHCP service)",
+      "evidence": [
+        "Some PCs on VLAN 20 are not receiving DHCP leases."
+      ],
+      "next_command": "show ip dhcp server statistics",
+      "fix_steps": [
+        "Restart the DHCP service on R1.",
+        "Confirm the DHCP pool is still bound to the correct interface."
+      ],
+      "severity": "Medium",
+      "concept": "Possible DHCP service failure",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-012",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The DHCP server process on R1 has stopped responding to requests on VLAN 20.",
+        "confidence": 58,
+        "osi_layer": "Application (DHCP service)",
+        "evidence": [
+          "Some PCs on VLAN 20 are not receiving DHCP leases."
+        ],
+        "next_command": "show ip dhcp server statistics",
+        "fix_steps": [
+          "Restart the DHCP service on R1.",
+          "Confirm the DHCP pool is still bound to the correct interface."
+        ],
+        "severity": "Medium",
+        "concept": "Possible DHCP service failure",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The DHCP server process on R1 has stopped responding to requests on VLAN 20.",
+      "ai_confidence": 58,
+      "reviewer_decision": "EDIT",
+      "corrected_diagnosis": "The pool only has 30 usable addresses (254 minus exclusions minus a pool sized too small for the subnet), and all 30 are already leased, so late-booting hosts cannot obtain an address \u2014 this is pool exhaustion, not a reachability problem.",
+      "reviewer_comments": null,
+      "reason_for_correction": "Corrected against known evidence during batch validation run.",
+      "final_diagnosis": "The pool only has 30 usable addresses (254 minus exclusions minus a pool sized too small for the subnet), and all 30 are already leased, so late-booting hosts cannot obtain an address \u2014 this is pool exhaustion, not a reachability problem."
+    }
+  },
+  {
+    "case_id": "CASE-013",
+    "diagnosis": {
+      "root_cause": "The DHCP pool's default-router (192.168.31.1) is outside the 192.168.30.0/24 network it serves, so clients receive an unreachable gateway even though they get a valid IP/mask.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network) / Application (DHCP service)",
+      "evidence": [
+        "default-router 192.168.31.1",
+        "ip dhcp pool VLAN30"
+      ],
+      "next_command": "show ip dhcp pool",
+      "fix_steps": [
+        "Review the DHCP pool's network, default-router, and exclusion configuration.",
+        "Correct the pool definition or add the missing pool for the affected subnet.",
+        "Release and renew a test client's lease to confirm the fix.",
+        "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+      ],
+      "severity": "High",
+      "concept": "Incorrect DHCP default-router / network mismatch",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-013",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The DHCP pool's default-router (192.168.31.1) is outside the 192.168.30.0/24 network it serves, so clients receive an unreachable gateway even though they get a valid IP/mask.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network) / Application (DHCP service)",
+        "evidence": [
+          "default-router 192.168.31.1",
+          "ip dhcp pool VLAN30"
+        ],
+        "next_command": "show ip dhcp pool",
+        "fix_steps": [
+          "Review the DHCP pool's network, default-router, and exclusion configuration.",
+          "Correct the pool definition or add the missing pool for the affected subnet.",
+          "Release and renew a test client's lease to confirm the fix.",
+          "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+        ],
+        "severity": "High",
+        "concept": "Incorrect DHCP default-router / network mismatch",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The DHCP pool's default-router (192.168.31.1) is outside the 192.168.30.0/24 network it serves, so clients receive an unreachable gateway even though they get a valid IP/mask.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The DHCP pool's default-router (192.168.31.1) is outside the 192.168.30.0/24 network it serves, so clients receive an unreachable gateway even though they get a valid IP/mask."
+    }
+  },
+  {
+    "case_id": "CASE-014",
+    "diagnosis": {
+      "root_cause": "There is no DHCP pool defined for the 192.168.60.0/24 network at all (only VLAN10's pool exists), so VLAN 60 clients have no server to answer their requests.",
+      "confidence": 89,
+      "osi_layer": "Application (DHCP service)",
+      "evidence": [
+        "default-router 192.168.10.1",
+        "interface GigabitEthernet0/0.60"
+      ],
+      "next_command": "show ip dhcp pool",
+      "fix_steps": [
+        "Review the DHCP pool's network, default-router, and exclusion configuration.",
+        "Correct the pool definition or add the missing pool for the affected subnet.",
+        "Release and renew a test client's lease to confirm the fix.",
+        "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+      ],
+      "severity": "High",
+      "concept": "Missing DHCP pool for new VLAN",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-014",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "There is no DHCP pool defined for the 192.168.60.0/24 network at all (only VLAN10's pool exists), so VLAN 60 clients have no server to answer their requests.",
+        "confidence": 89,
+        "osi_layer": "Application (DHCP service)",
+        "evidence": [
+          "default-router 192.168.10.1",
+          "interface GigabitEthernet0/0.60"
+        ],
+        "next_command": "show ip dhcp pool",
+        "fix_steps": [
+          "Review the DHCP pool's network, default-router, and exclusion configuration.",
+          "Correct the pool definition or add the missing pool for the affected subnet.",
+          "Release and renew a test client's lease to confirm the fix.",
+          "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+        ],
+        "severity": "High",
+        "concept": "Missing DHCP pool for new VLAN",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "There is no DHCP pool defined for the 192.168.60.0/24 network at all (only VLAN10's pool exists), so VLAN 60 clients have no server to answer their requests.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "There is no DHCP pool defined for the 192.168.60.0/24 network at all (only VLAN10's pool exists), so VLAN 60 clients have no server to answer their requests."
+    }
+  },
+  {
+    "case_id": "CASE-015",
+    "diagnosis": {
+      "root_cause": "192.168.10.50 was never excluded from the DHCP pool even though it is statically assigned to SVR1, so DHCP eventually leased that same address to PC-F, creating a duplicate IP conflict.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "IPv4 Address. . . . . . . . . . : 192.168.10.50",
+        "Subnet Mask . . . . . . . . . . : 255.255.255.0"
+      ],
+      "next_command": "show ip dhcp pool",
+      "fix_steps": [
+        "Review the DHCP pool's network, default-router, and exclusion configuration.",
+        "Correct the pool definition or add the missing pool for the affected subnet.",
+        "Release and renew a test client's lease to confirm the fix.",
+        "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+      ],
+      "severity": "Critical",
+      "concept": "Duplicate IP address (missing DHCP exclusion)",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-015",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "192.168.10.50 was never excluded from the DHCP pool even though it is statically assigned to SVR1, so DHCP eventually leased that same address to PC-F, creating a duplicate IP conflict.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "IPv4 Address. . . . . . . . . . : 192.168.10.50",
+          "Subnet Mask . . . . . . . . . . : 255.255.255.0"
+        ],
+        "next_command": "show ip dhcp pool",
+        "fix_steps": [
+          "Review the DHCP pool's network, default-router, and exclusion configuration.",
+          "Correct the pool definition or add the missing pool for the affected subnet.",
+          "Release and renew a test client's lease to confirm the fix.",
+          "Monitor 'show ip dhcp pool' utilization to catch future exhaustion early."
+        ],
+        "severity": "Critical",
+        "concept": "Duplicate IP address (missing DHCP exclusion)",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "192.168.10.50 was never excluded from the DHCP pool even though it is statically assigned to SVR1, so DHCP eventually leased that same address to PC-F, creating a duplicate IP conflict.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "192.168.10.50 was never excluded from the DHCP pool even though it is statically assigned to SVR1, so DHCP eventually leased that same address to PC-F, creating a duplicate IP conflict."
+    }
+  },
+  {
+    "case_id": "CASE-016",
+    "diagnosis": {
+      "root_cause": "The DHCP pool hands out the router's own interface (192.168.10.1) as the DNS server, but R1 is not actually configured as a DNS server/forwarder, so name resolution fails even though basic IP connectivity is fine.",
+      "confidence": 68,
+      "osi_layer": "Application (Layer 7)",
+      "evidence": [
+        "default-router 192.168.10.1",
+        "*** 192.168.10.1 can't find www.google.com: Server failed"
+      ],
+      "next_command": "show running-config | section dns",
+      "fix_steps": [
+        "Confirm the correct internal/external DNS server address(es) for this network.",
+        "Correct the DHCP-distributed or statically-configured DNS server entry.",
+        "Test with nslookup from an affected host after the change.",
+        "Document the approved DNS server addresses to avoid recurrence."
+      ],
+      "severity": "Medium",
+      "concept": "Invalid / non-functional DNS server address",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-016",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The DHCP pool hands out the router's own interface (192.168.10.1) as the DNS server, but R1 is not actually configured as a DNS server/forwarder, so name resolution fails even though basic IP connectivity is fine.",
+        "confidence": 68,
+        "osi_layer": "Application (Layer 7)",
+        "evidence": [
+          "default-router 192.168.10.1",
+          "*** 192.168.10.1 can't find www.google.com: Server failed"
+        ],
+        "next_command": "show running-config | section dns",
+        "fix_steps": [
+          "Confirm the correct internal/external DNS server address(es) for this network.",
+          "Correct the DHCP-distributed or statically-configured DNS server entry.",
+          "Test with nslookup from an affected host after the change.",
+          "Document the approved DNS server addresses to avoid recurrence."
+        ],
+        "severity": "Medium",
+        "concept": "Invalid / non-functional DNS server address",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The DHCP pool hands out the router's own interface (192.168.10.1) as the DNS server, but R1 is not actually configured as a DNS server/forwarder, so name resolution fails even though basic IP connectivity is fine.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The DHCP pool hands out the router's own interface (192.168.10.1) as the DNS server, but R1 is not actually configured as a DNS server/forwarder, so name resolution fails even though basic IP connectivity is fine."
+    }
+  },
+  {
+    "case_id": "CASE-017",
+    "diagnosis": {
+      "root_cause": "VLAN 20's DHCP pool points clients to a public DNS server (8.8.8.8) instead of the internal DNS server (10.10.10.53), so it cannot resolve internal-only hostnames.",
+      "confidence": 68,
+      "osi_layer": "Application (Layer 7)",
+      "evidence": [
+        "ip dhcp pool VLAN10",
+        "dns-server 10.10.10.53"
+      ],
+      "next_command": "show running-config | section dns",
+      "fix_steps": [
+        "Confirm the correct internal/external DNS server address(es) for this network.",
+        "Correct the DHCP-distributed or statically-configured DNS server entry.",
+        "Test with nslookup from an affected host after the change.",
+        "Document the approved DNS server addresses to avoid recurrence."
+      ],
+      "severity": "Low",
+      "concept": "Wrong DNS server for internal name resolution",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-017",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "VLAN 20's DHCP pool points clients to a public DNS server (8.8.8.8) instead of the internal DNS server (10.10.10.53), so it cannot resolve internal-only hostnames.",
+        "confidence": 68,
+        "osi_layer": "Application (Layer 7)",
+        "evidence": [
+          "ip dhcp pool VLAN10",
+          "dns-server 10.10.10.53"
+        ],
+        "next_command": "show running-config | section dns",
+        "fix_steps": [
+          "Confirm the correct internal/external DNS server address(es) for this network.",
+          "Correct the DHCP-distributed or statically-configured DNS server entry.",
+          "Test with nslookup from an affected host after the change.",
+          "Document the approved DNS server addresses to avoid recurrence."
+        ],
+        "severity": "Low",
+        "concept": "Wrong DNS server for internal name resolution",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "VLAN 20's DHCP pool points clients to a public DNS server (8.8.8.8) instead of the internal DNS server (10.10.10.53), so it cannot resolve internal-only hostnames.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "VLAN 20's DHCP pool points clients to a public DNS server (8.8.8.8) instead of the internal DNS server (10.10.10.53), so it cannot resolve internal-only hostnames."
+    }
+  },
+  {
+    "case_id": "CASE-018",
+    "diagnosis": {
+      "root_cause": "The DNS server's own network interface has been administratively shut down, taking the single point of failure DNS service offline for the entire network while routing between other hosts is unaffected.",
+      "confidence": 89,
+      "osi_layer": "Application (Layer 7) / Layer 1 (Physical)",
+      "evidence": [
+        "FastEthernet0   10.10.10.53     YES manual administratively down down",
+        "Request timed out."
+      ],
+      "next_command": "show running-config | section dns",
+      "fix_steps": [
+        "Confirm the correct internal/external DNS server address(es) for this network.",
+        "Correct the DHCP-distributed or statically-configured DNS server entry.",
+        "Test with nslookup from an affected host after the change.",
+        "Document the approved DNS server addresses to avoid recurrence."
+      ],
+      "severity": "Critical",
+      "concept": "DNS server unreachable (interface down)",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-018",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The DNS server's own network interface has been administratively shut down, taking the single point of failure DNS service offline for the entire network while routing between other hosts is unaffected.",
+        "confidence": 89,
+        "osi_layer": "Application (Layer 7) / Layer 1 (Physical)",
+        "evidence": [
+          "FastEthernet0   10.10.10.53     YES manual administratively down down",
+          "Request timed out."
+        ],
+        "next_command": "show running-config | section dns",
+        "fix_steps": [
+          "Confirm the correct internal/external DNS server address(es) for this network.",
+          "Correct the DHCP-distributed or statically-configured DNS server entry.",
+          "Test with nslookup from an affected host after the change.",
+          "Document the approved DNS server addresses to avoid recurrence."
+        ],
+        "severity": "Critical",
+        "concept": "DNS server unreachable (interface down)",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The DNS server's own network interface has been administratively shut down, taking the single point of failure DNS service offline for the entire network while routing between other hosts is unaffected.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The DNS server's own network interface has been administratively shut down, taking the single point of failure DNS service offline for the entire network while routing between other hosts is unaffected."
+    }
+  },
+  {
+    "case_id": "CASE-019",
+    "diagnosis": {
+      "root_cause": "This PC was manually configured with a static DNS server of 0.0.0.0 (overriding DHCP), which is not a valid resolver address, unlike the rest of the VLAN which uses the DHCP-assigned DNS server.",
+      "confidence": 68,
+      "osi_layer": "Application (Layer 7)",
+      "evidence": [
+        "Default Gateway . . . . . . . . : 192.168.10.1",
+        "IPv4 Address. . . . . . . . . . : 192.168.10.44"
+      ],
+      "next_command": "show running-config | section dns",
+      "fix_steps": [
+        "Confirm the correct internal/external DNS server address(es) for this network.",
+        "Correct the DHCP-distributed or statically-configured DNS server entry.",
+        "Test with nslookup from an affected host after the change.",
+        "Document the approved DNS server addresses to avoid recurrence."
+      ],
+      "severity": "Low",
+      "concept": "Invalid statically-configured DNS server on a single host",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-019",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "This PC was manually configured with a static DNS server of 0.0.0.0 (overriding DHCP), which is not a valid resolver address, unlike the rest of the VLAN which uses the DHCP-assigned DNS server.",
+        "confidence": 68,
+        "osi_layer": "Application (Layer 7)",
+        "evidence": [
+          "Default Gateway . . . . . . . . : 192.168.10.1",
+          "IPv4 Address. . . . . . . . . . : 192.168.10.44"
+        ],
+        "next_command": "show running-config | section dns",
+        "fix_steps": [
+          "Confirm the correct internal/external DNS server address(es) for this network.",
+          "Correct the DHCP-distributed or statically-configured DNS server entry.",
+          "Test with nslookup from an affected host after the change.",
+          "Document the approved DNS server addresses to avoid recurrence."
+        ],
+        "severity": "Low",
+        "concept": "Invalid statically-configured DNS server on a single host",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "This PC was manually configured with a static DNS server of 0.0.0.0 (overriding DHCP), which is not a valid resolver address, unlike the rest of the VLAN which uses the DHCP-assigned DNS server.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "This PC was manually configured with a static DNS server of 0.0.0.0 (overriding DHCP), which is not a valid resolver address, unlike the rest of the VLAN which uses the DHCP-assigned DNS server."
+    }
+  },
+  {
+    "case_id": "CASE-020",
+    "diagnosis": {
+      "root_cause": "The serial transit network 172.16.5.0/30 was never added to an OSPF network statement on R1, so OSPF never forms/advertises correctly across the link and R2's networks never appear in R1's routing table.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "(172.16.5.0/30 is not advertised into OSPF)",
+        "Gateway of last resort is not set"
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+        "Add the missing route, network statement, or correct the erroneous next hop.",
+        "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+        "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+      ],
+      "severity": "High",
+      "concept": "Missing OSPF network statement",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-020",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The serial transit network 172.16.5.0/30 was never added to an OSPF network statement on R1, so OSPF never forms/advertises correctly across the link and R2's networks never appear in R1's routing table.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "(172.16.5.0/30 is not advertised into OSPF)",
+          "Gateway of last resort is not set"
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+          "Add the missing route, network statement, or correct the erroneous next hop.",
+          "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+          "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+        ],
+        "severity": "High",
+        "concept": "Missing OSPF network statement",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The serial transit network 172.16.5.0/30 was never added to an OSPF network statement on R1, so OSPF never forms/advertises correctly across the link and R2's networks never appear in R1's routing table.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The serial transit network 172.16.5.0/30 was never added to an OSPF network statement on R1, so OSPF never forms/advertises correctly across the link and R2's networks never appear in R1's routing table."
+    }
+  },
+  {
+    "case_id": "CASE-021",
+    "diagnosis": {
+      "root_cause": "192.168.99.0/24 was never added to R1's OSPF network statements, so OSPF is not advertising the new server subnet to R2 even though the interface itself is up.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "-- no entry for 192.168.99.0/24 --",
+        "C    172.16.5.0/30 is directly connected, Serial0/0/0"
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+        "Add the missing route, network statement, or correct the erroneous next hop.",
+        "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+        "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+      ],
+      "severity": "Medium",
+      "concept": "New subnet not redistributed/advertised into routing protocol",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-021",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "192.168.99.0/24 was never added to R1's OSPF network statements, so OSPF is not advertising the new server subnet to R2 even though the interface itself is up.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "-- no entry for 192.168.99.0/24 --",
+          "C    172.16.5.0/30 is directly connected, Serial0/0/0"
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+          "Add the missing route, network statement, or correct the erroneous next hop.",
+          "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+          "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+        ],
+        "severity": "Medium",
+        "concept": "New subnet not redistributed/advertised into routing protocol",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "192.168.99.0/24 was never added to R1's OSPF network statements, so OSPF is not advertising the new server subnet to R2 even though the interface itself is up.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "192.168.99.0/24 was never added to R1's OSPF network statements, so OSPF is not advertising the new server subnet to R2 even though the interface itself is up."
+    }
+  },
+  {
+    "case_id": "CASE-022",
+    "diagnosis": {
+      "root_cause": "The static default route points to next-hop 203.0.113.254, which is outside the 203.0.113.0/30 directly connected subnet, so the next hop is unreachable and the default route can never be used.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "S*   0.0.0.0/0 [1/0] via 203.0.113.254",
+        "C    203.0.113.0/30 is directly connected, GigabitEthernet0/1"
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+        "Add the missing route, network statement, or correct the erroneous next hop.",
+        "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+        "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+      ],
+      "severity": "High",
+      "concept": "Static route with unreachable next hop",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-022",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The static default route points to next-hop 203.0.113.254, which is outside the 203.0.113.0/30 directly connected subnet, so the next hop is unreachable and the default route can never be used.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "S*   0.0.0.0/0 [1/0] via 203.0.113.254",
+          "C    203.0.113.0/30 is directly connected, GigabitEthernet0/1"
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+          "Add the missing route, network statement, or correct the erroneous next hop.",
+          "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+          "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+        ],
+        "severity": "High",
+        "concept": "Static route with unreachable next hop",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The static default route points to next-hop 203.0.113.254, which is outside the 203.0.113.0/30 directly connected subnet, so the next hop is unreachable and the default route can never be used.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The static default route points to next-hop 203.0.113.254, which is outside the 203.0.113.0/30 directly connected subnet, so the next hop is unreachable and the default route can never be used."
+    }
+  },
+  {
+    "case_id": "CASE-023",
+    "diagnosis": {
+      "root_cause": "Both R1 and R3 have a static route for 192.168.50.0/24 pointing at each other instead of at the actual subnet owner, creating a routing loop that produces the observed intermittent loss.",
+      "confidence": 68,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "S    192.168.50.0/24 [1/0] via 172.16.1.2 (R3)",
+        "S    192.168.50.0/24 [1/0] via 172.16.1.1 (R1)"
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+        "Add the missing route, network statement, or correct the erroneous next hop.",
+        "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+        "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+      ],
+      "severity": "High",
+      "concept": "Routing loop from misconfigured static routes",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-023",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "Both R1 and R3 have a static route for 192.168.50.0/24 pointing at each other instead of at the actual subnet owner, creating a routing loop that produces the observed intermittent loss.",
+        "confidence": 68,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "S    192.168.50.0/24 [1/0] via 172.16.1.2 (R3)",
+          "S    192.168.50.0/24 [1/0] via 172.16.1.1 (R1)"
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+          "Add the missing route, network statement, or correct the erroneous next hop.",
+          "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+          "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+        ],
+        "severity": "High",
+        "concept": "Routing loop from misconfigured static routes",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "Both R1 and R3 have a static route for 192.168.50.0/24 pointing at each other instead of at the actual subnet owner, creating a routing loop that produces the observed intermittent loss.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "Both R1 and R3 have a static route for 192.168.50.0/24 pointing at each other instead of at the actual subnet owner, creating a routing loop that produces the observed intermittent loss."
+    }
+  },
+  {
+    "case_id": "CASE-024",
+    "diagnosis": {
+      "root_cause": "The routing table is completely empty even though both sub-interfaces are up \u2014 the running-config confirms 'no ip routing' was applied during the firmware update, disabling Layer 3 forwarding on the router entirely.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "-- routing table is empty --",
+        "Interface              IP-Address      OK? Method Status  Protocol"
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+        "Add the missing route, network statement, or correct the erroneous next hop.",
+        "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+        "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+      ],
+      "severity": "Critical",
+      "concept": "IP routing disabled on router",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-024",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The routing table is completely empty even though both sub-interfaces are up \u2014 the running-config confirms 'no ip routing' was applied during the firmware update, disabling Layer 3 forwarding on the router entirely.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "-- routing table is empty --",
+          "Interface              IP-Address      OK? Method Status  Protocol"
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Confirm the intended routing design (static vs. dynamic) for the affected network.",
+          "Add the missing route, network statement, or correct the erroneous next hop.",
+          "Re-run 'show ip route' on the affected router(s) to confirm the entry appears.",
+          "Re-test end-to-end connectivity and run a traceroute to confirm the path."
+        ],
+        "severity": "Critical",
+        "concept": "IP routing disabled on router",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The routing table is completely empty even though both sub-interfaces are up \u2014 the running-config confirms 'no ip routing' was applied during the firmware update, disabling Layer 3 forwarding on the router entirely.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The routing table is completely empty even though both sub-interfaces are up \u2014 the running-config confirms 'no ip routing' was applied during the firmware update, disabling Layer 3 forwarding on the router entirely."
+    }
+  },
+  {
+    "case_id": "CASE-025",
+    "diagnosis": {
+      "root_cause": "R1's routing table is missing a route to the 192.168.30.0/24 server subnet.",
+      "confidence": 64,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "No route to 192.168.30.0/24 was confirmed in the routing table evidence provided."
+      ],
+      "next_command": "show ip route",
+      "fix_steps": [
+        "Verify OSPF/static routing configuration for the 192.168.30.0/24 subnet.",
+        "Add a route or network statement if missing."
+      ],
+      "severity": "High",
+      "concept": "Possible missing route",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-025",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "R1's routing table is missing a route to the 192.168.30.0/24 server subnet.",
+        "confidence": 64,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "No route to 192.168.30.0/24 was confirmed in the routing table evidence provided."
+        ],
+        "next_command": "show ip route",
+        "fix_steps": [
+          "Verify OSPF/static routing configuration for the 192.168.30.0/24 subnet.",
+          "Add a route or network statement if missing."
+        ],
+        "severity": "High",
+        "concept": "Possible missing route",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "R1's routing table is missing a route to the 192.168.30.0/24 server subnet.",
+      "ai_confidence": 64,
+      "reviewer_decision": "EDIT",
+      "corrected_diagnosis": "ACL entry 20 explicitly denies all traffic from the 192.168.10.0/24 (VLAN 10) subnet to SVR1, while VLAN 20 is only permitted for HTTP \u2014 the reporting PC is on VLAN 10 and is being blocked by this explicit deny statement.",
+      "reviewer_comments": null,
+      "reason_for_correction": "Corrected against known evidence during batch validation run.",
+      "final_diagnosis": "ACL entry 20 explicitly denies all traffic from the 192.168.10.0/24 (VLAN 10) subnet to SVR1, while VLAN 20 is only permitted for HTTP \u2014 the reporting PC is on VLAN 10 and is being blocked by this explicit deny statement."
+    }
+  },
+  {
+    "case_id": "CASE-026",
+    "diagnosis": {
+      "root_cause": "The VTY access-class explicitly denies the admin subnet (192.168.99.0/24) before the permit-any statement, so ironically the one subnet that should manage the router is blocked from doing so.",
+      "confidence": 89,
+      "osi_layer": "Layer 3/4 (Network/Transport) / Application (SSH)",
+      "evidence": [
+        "10 deny   192.168.99.0 0.0.0.255",
+        "Standard IP access list VTY_ACCESS"
+      ],
+      "next_command": "show access-lists",
+      "fix_steps": [
+        "Review the full ACL top-to-bottom, noting that ACLs are evaluated in order.",
+        "Add a more specific permit statement above the blocking deny, rather than removing the deny.",
+        "Apply the corrected ACL and re-test the affected traffic.",
+        "Document the change and the business reason it was approved."
+      ],
+      "severity": "High",
+      "concept": "ACL misconfiguration on VTY lines",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-026",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The VTY access-class explicitly denies the admin subnet (192.168.99.0/24) before the permit-any statement, so ironically the one subnet that should manage the router is blocked from doing so.",
+        "confidence": 89,
+        "osi_layer": "Layer 3/4 (Network/Transport) / Application (SSH)",
+        "evidence": [
+          "10 deny   192.168.99.0 0.0.0.255",
+          "Standard IP access list VTY_ACCESS"
+        ],
+        "next_command": "show access-lists",
+        "fix_steps": [
+          "Review the full ACL top-to-bottom, noting that ACLs are evaluated in order.",
+          "Add a more specific permit statement above the blocking deny, rather than removing the deny.",
+          "Apply the corrected ACL and re-test the affected traffic.",
+          "Document the change and the business reason it was approved."
+        ],
+        "severity": "High",
+        "concept": "ACL misconfiguration on VTY lines",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The VTY access-class explicitly denies the admin subnet (192.168.99.0/24) before the permit-any statement, so ironically the one subnet that should manage the router is blocked from doing so.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The VTY access-class explicitly denies the admin subnet (192.168.99.0/24) before the permit-any statement, so ironically the one subnet that should manage the router is blocked from doing so."
+    }
+  },
+  {
+    "case_id": "CASE-027",
+    "diagnosis": {
+      "root_cause": "FTP_ACL only permits TCP port 80 (HTTP) to the server, but never explicitly permits TCP ports 20/21 (FTP), and there is no trailing 'permit ip any any' \u2014 the implicit deny at the end of the ACL is blocking FTP traffic.",
+      "confidence": 89,
+      "osi_layer": "Layer 4 (Transport)",
+      "evidence": [
+        "10 permit tcp any host 192.168.30.60 eq 80",
+        "Extended IP access list FTP_ACL"
+      ],
+      "next_command": "show access-lists",
+      "fix_steps": [
+        "Review the full ACL top-to-bottom, noting that ACLs are evaluated in order.",
+        "Add a more specific permit statement above the blocking deny, rather than removing the deny.",
+        "Apply the corrected ACL and re-test the affected traffic.",
+        "Document the change and the business reason it was approved."
+      ],
+      "severity": "Medium",
+      "concept": "ACL missing required port permit (implicit deny)",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-027",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "FTP_ACL only permits TCP port 80 (HTTP) to the server, but never explicitly permits TCP ports 20/21 (FTP), and there is no trailing 'permit ip any any' \u2014 the implicit deny at the end of the ACL is blocking FTP traffic.",
+        "confidence": 89,
+        "osi_layer": "Layer 4 (Transport)",
+        "evidence": [
+          "10 permit tcp any host 192.168.30.60 eq 80",
+          "Extended IP access list FTP_ACL"
+        ],
+        "next_command": "show access-lists",
+        "fix_steps": [
+          "Review the full ACL top-to-bottom, noting that ACLs are evaluated in order.",
+          "Add a more specific permit statement above the blocking deny, rather than removing the deny.",
+          "Apply the corrected ACL and re-test the affected traffic.",
+          "Document the change and the business reason it was approved."
+        ],
+        "severity": "Medium",
+        "concept": "ACL missing required port permit (implicit deny)",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "FTP_ACL only permits TCP port 80 (HTTP) to the server, but never explicitly permits TCP ports 20/21 (FTP), and there is no trailing 'permit ip any any' \u2014 the implicit deny at the end of the ACL is blocking FTP traffic.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "FTP_ACL only permits TCP port 80 (HTTP) to the server, but never explicitly permits TCP ports 20/21 (FTP), and there is no trailing 'permit ip any any' \u2014 the implicit deny at the end of the ACL is blocking FTP traffic."
+    }
+  },
+  {
+    "case_id": "CASE-028",
+    "diagnosis": {
+      "root_cause": "NAT overload (PAT) is not enabled on R1's outside interface.",
+      "confidence": 66,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "'show ip nat translations' shows no active translations."
+      ],
+      "next_command": "show running-config | section nat",
+      "fix_steps": [
+        "Re-apply 'ip nat inside source list NAT_SRC interface GigabitEthernet0/1 overload'.",
+        "Confirm 'ip nat inside' / 'ip nat outside' are present on the correct interfaces."
+      ],
+      "severity": "High",
+      "concept": "Possible missing NAT overload configuration",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-028",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "NAT overload (PAT) is not enabled on R1's outside interface.",
+        "confidence": 66,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "'show ip nat translations' shows no active translations."
+        ],
+        "next_command": "show running-config | section nat",
+        "fix_steps": [
+          "Re-apply 'ip nat inside source list NAT_SRC interface GigabitEthernet0/1 overload'.",
+          "Confirm 'ip nat inside' / 'ip nat outside' are present on the correct interfaces."
+        ],
+        "severity": "High",
+        "concept": "Possible missing NAT overload configuration",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "NAT overload (PAT) is not enabled on R1's outside interface.",
+      "ai_confidence": 66,
+      "reviewer_decision": "EDIT",
+      "corrected_diagnosis": "The ACL that defines which traffic NAT should translate (NAT_SRC) explicitly denies the 192.168.10.0/24 subnet, so NAT never matches and translates any of that subnet's traffic, even though NAT itself is enabled correctly.",
+      "reviewer_comments": null,
+      "reason_for_correction": "Corrected against known evidence during batch validation run.",
+      "final_diagnosis": "The ACL that defines which traffic NAT should translate (NAT_SRC) explicitly denies the 192.168.10.0/24 subnet, so NAT never matches and translates any of that subnet's traffic, even though NAT itself is enabled correctly."
+    }
+  },
+  {
+    "case_id": "CASE-029",
+    "diagnosis": {
+      "root_cause": "Neither Gi0/0.10 nor Gi0/1 has been marked with 'ip nat inside' / 'ip nat outside', so even though the 'ip nat inside source' statement and ACL are correct, NAT never actually triggers on any interface.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "ip nat inside source list 1 interface GigabitEthernet0/1 overload",
+        "!"
+      ],
+      "next_command": "show ip nat statistics",
+      "fix_steps": [
+        "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+        "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+        "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+        "Re-run 'show ip nat translations' to confirm active entries appear."
+      ],
+      "severity": "High",
+      "concept": "Missing ip nat inside/outside interface marking",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-029",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "Neither Gi0/0.10 nor Gi0/1 has been marked with 'ip nat inside' / 'ip nat outside', so even though the 'ip nat inside source' statement and ACL are correct, NAT never actually triggers on any interface.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "ip nat inside source list 1 interface GigabitEthernet0/1 overload",
+          "!"
+        ],
+        "next_command": "show ip nat statistics",
+        "fix_steps": [
+          "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+          "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+          "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+          "Re-run 'show ip nat translations' to confirm active entries appear."
+        ],
+        "severity": "High",
+        "concept": "Missing ip nat inside/outside interface marking",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "Neither Gi0/0.10 nor Gi0/1 has been marked with 'ip nat inside' / 'ip nat outside', so even though the 'ip nat inside source' statement and ACL are correct, NAT never actually triggers on any interface.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "Neither Gi0/0.10 nor Gi0/1 has been marked with 'ip nat inside' / 'ip nat outside', so even though the 'ip nat inside source' statement and ACL are correct, NAT never actually triggers on any interface."
+    }
+  },
+  {
+    "case_id": "CASE-030",
+    "diagnosis": {
+      "root_cause": "The outside interface is listed as Serial0/0/1, but the actual ISP-facing interface in this topology is GigabitEthernet0/1 \u2014 'ip nat outside' was applied to the wrong (unused) interface, so translations never occur.",
+      "confidence": 89,
+      "osi_layer": "Layer 3 (Network)",
+      "evidence": [
+        "Total active translations: 0 (0 static, 0 dynamic; 0 extended)",
+        "Outside interfaces:"
+      ],
+      "next_command": "show ip nat statistics",
+      "fix_steps": [
+        "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+        "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+        "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+        "Re-run 'show ip nat translations' to confirm active entries appear."
+      ],
+      "severity": "High",
+      "concept": "ip nat outside applied to the wrong interface",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-030",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The outside interface is listed as Serial0/0/1, but the actual ISP-facing interface in this topology is GigabitEthernet0/1 \u2014 'ip nat outside' was applied to the wrong (unused) interface, so translations never occur.",
+        "confidence": 89,
+        "osi_layer": "Layer 3 (Network)",
+        "evidence": [
+          "Total active translations: 0 (0 static, 0 dynamic; 0 extended)",
+          "Outside interfaces:"
+        ],
+        "next_command": "show ip nat statistics",
+        "fix_steps": [
+          "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+          "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+          "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+          "Re-run 'show ip nat translations' to confirm active entries appear."
+        ],
+        "severity": "High",
+        "concept": "ip nat outside applied to the wrong interface",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The outside interface is listed as Serial0/0/1, but the actual ISP-facing interface in this topology is GigabitEthernet0/1 \u2014 'ip nat outside' was applied to the wrong (unused) interface, so translations never occur.",
+      "ai_confidence": 89,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The outside interface is listed as Serial0/0/1, but the actual ISP-facing interface in this topology is GigabitEthernet0/1 \u2014 'ip nat outside' was applied to the wrong (unused) interface, so translations never occur."
+    }
+  },
+  {
+    "case_id": "CASE-031",
+    "diagnosis": {
+      "root_cause": "The single overload address has run out of available source ports (NAT port pool exhaustion) under heavy load from a /16 of internal hosts sharing one public IP, causing new sessions to intermittently fail while established ones continue to work.",
+      "confidence": 68,
+      "osi_layer": "Layer 4 (Transport)",
+      "evidence": [
+        "Total active translations: 4092 (0 static, 4092 dynamic; 4092 extended)",
+        "Hits: 88210  Misses: 512"
+      ],
+      "next_command": "show ip nat statistics",
+      "fix_steps": [
+        "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+        "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+        "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+        "Re-run 'show ip nat translations' to confirm active entries appear."
+      ],
+      "severity": "Medium",
+      "concept": "NAT overload port exhaustion",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-031",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The single overload address has run out of available source ports (NAT port pool exhaustion) under heavy load from a /16 of internal hosts sharing one public IP, causing new sessions to intermittently fail while established ones continue to work.",
+        "confidence": 68,
+        "osi_layer": "Layer 4 (Transport)",
+        "evidence": [
+          "Total active translations: 4092 (0 static, 4092 dynamic; 4092 extended)",
+          "Hits: 88210  Misses: 512"
+        ],
+        "next_command": "show ip nat statistics",
+        "fix_steps": [
+          "Confirm 'ip nat inside' and 'ip nat outside' are applied to the correct interfaces.",
+          "Confirm the ACL referenced by 'ip nat inside source list' actually permits the intended traffic.",
+          "Clear existing translations ('clear ip nat translation *') and generate new test traffic.",
+          "Re-run 'show ip nat translations' to confirm active entries appear."
+        ],
+        "severity": "Medium",
+        "concept": "NAT overload port exhaustion",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The single overload address has run out of available source ports (NAT port pool exhaustion) under heavy load from a /16 of internal hosts sharing one public IP, causing new sessions to intermittently fail while established ones continue to work.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The single overload address has run out of available source ports (NAT port pool exhaustion) under heavy load from a /16 of internal hosts sharing one public IP, causing new sessions to intermittently fail while established ones continue to work."
+    }
+  },
+  {
+    "case_id": "CASE-032",
+    "diagnosis": {
+      "root_cause": "The SSID mixes 'authentication open' with WPA2-PSK key management \u2014 this inconsistent security configuration causes clients configured for standard WPA2-Personal to fail the 4-way handshake and never fully associate.",
+      "confidence": 68,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "authentication open",
+        "dot11 ssid CORP-WIFI"
+      ],
+      "next_command": "show running-config",
+      "fix_steps": [
+        "Review the SSID's security/authentication configuration for internal consistency.",
+        "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+        "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+        "Document the corrected configuration for the AP/WLC template."
+      ],
+      "severity": "Medium",
+      "concept": "Inconsistent wireless security configuration",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-032",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The SSID mixes 'authentication open' with WPA2-PSK key management \u2014 this inconsistent security configuration causes clients configured for standard WPA2-Personal to fail the 4-way handshake and never fully associate.",
+        "confidence": 68,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "authentication open",
+          "dot11 ssid CORP-WIFI"
+        ],
+        "next_command": "show running-config",
+        "fix_steps": [
+          "Review the SSID's security/authentication configuration for internal consistency.",
+          "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+          "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+          "Document the corrected configuration for the AP/WLC template."
+        ],
+        "severity": "Medium",
+        "concept": "Inconsistent wireless security configuration",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The SSID mixes 'authentication open' with WPA2-PSK key management \u2014 this inconsistent security configuration causes clients configured for standard WPA2-Personal to fail the 4-way handshake and never fully associate.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The SSID mixes 'authentication open' with WPA2-PSK key management \u2014 this inconsistent security configuration causes clients configured for standard WPA2-Personal to fail the 4-way handshake and never fully associate."
+    }
+  },
+  {
+    "case_id": "CASE-033",
+    "diagnosis": {
+      "root_cause": "The wireless radio interface is in bridge-group 1 while the wired uplink interface is in bridge-group 2 \u2014 the two are never bridged together, so wireless clients are isolated from the wired network and its DHCP server.",
+      "confidence": 68,
+      "osi_layer": "Layer 2 (Data Link)",
+      "evidence": [
+        "bridge-group 1",
+        "bridge-group 2"
+      ],
+      "next_command": "show running-config",
+      "fix_steps": [
+        "Review the SSID's security/authentication configuration for internal consistency.",
+        "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+        "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+        "Document the corrected configuration for the AP/WLC template."
+      ],
+      "severity": "High",
+      "concept": "Bridge-group mismatch isolating wireless from wired network",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-033",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "The wireless radio interface is in bridge-group 1 while the wired uplink interface is in bridge-group 2 \u2014 the two are never bridged together, so wireless clients are isolated from the wired network and its DHCP server.",
+        "confidence": 68,
+        "osi_layer": "Layer 2 (Data Link)",
+        "evidence": [
+          "bridge-group 1",
+          "bridge-group 2"
+        ],
+        "next_command": "show running-config",
+        "fix_steps": [
+          "Review the SSID's security/authentication configuration for internal consistency.",
+          "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+          "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+          "Document the corrected configuration for the AP/WLC template."
+        ],
+        "severity": "High",
+        "concept": "Bridge-group mismatch isolating wireless from wired network",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "The wireless radio interface is in bridge-group 1 while the wired uplink interface is in bridge-group 2 \u2014 the two are never bridged together, so wireless clients are isolated from the wired network and its DHCP server.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "The wireless radio interface is in bridge-group 1 while the wired uplink interface is in bridge-group 2 \u2014 the two are never bridged together, so wireless clients are isolated from the wired network and its DHCP server."
+    }
+  },
+  {
+    "case_id": "CASE-034",
+    "diagnosis": {
+      "root_cause": "AP3 and AP4 are both operating on the same 2.4 GHz channel (6) with overlapping coverage, causing co-channel interference that degrades performance for clients near AP3, which sits closer to the overlap zone.",
+      "confidence": 68,
+      "osi_layer": "Layer 1 (Physical)",
+      "evidence": [
+        "Channel: 6"
+      ],
+      "next_command": "show running-config",
+      "fix_steps": [
+        "Review the SSID's security/authentication configuration for internal consistency.",
+        "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+        "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+        "Document the corrected configuration for the AP/WLC template."
+      ],
+      "severity": "Low",
+      "concept": "Co-channel wireless interference",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-034",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "AP3 and AP4 are both operating on the same 2.4 GHz channel (6) with overlapping coverage, causing co-channel interference that degrades performance for clients near AP3, which sits closer to the overlap zone.",
+        "confidence": 68,
+        "osi_layer": "Layer 1 (Physical)",
+        "evidence": [
+          "Channel: 6"
+        ],
+        "next_command": "show running-config",
+        "fix_steps": [
+          "Review the SSID's security/authentication configuration for internal consistency.",
+          "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+          "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+          "Document the corrected configuration for the AP/WLC template."
+        ],
+        "severity": "Low",
+        "concept": "Co-channel wireless interference",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "AP3 and AP4 are both operating on the same 2.4 GHz channel (6) with overlapping coverage, causing co-channel interference that degrades performance for clients near AP3, which sits closer to the overlap zone.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "AP3 and AP4 are both operating on the same 2.4 GHz channel (6) with overlapping coverage, causing co-channel interference that degrades performance for clients near AP3, which sits closer to the overlap zone."
+    }
+  },
+  {
+    "case_id": "CASE-035",
+    "diagnosis": {
+      "root_cause": "GUEST-WIFI has 'guest-mode disabled', which means the SSID is configured but not being broadcast (it is a closed/hidden network), so it never appears in the visitor's scan list.",
+      "confidence": 68,
+      "osi_layer": "Layer 1/2 (Physical / Data Link)",
+      "evidence": [
+        "guest-mode disabled",
+        "authentication open"
+      ],
+      "next_command": "show running-config",
+      "fix_steps": [
+        "Review the SSID's security/authentication configuration for internal consistency.",
+        "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+        "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+        "Document the corrected configuration for the AP/WLC template."
+      ],
+      "severity": "Low",
+      "concept": "SSID broadcast disabled (guest-mode not enabled)",
+      "needs_human_review": true,
+      "_source": "mock"
+    },
+    "review": {
+      "case_id": "CASE-035",
+      "reviewer_name": "viva_demo_user",
+      "reviewed_at": "2026-08-30T15:47:53Z",
+      "ai_diagnosis_full": {
+        "root_cause": "GUEST-WIFI has 'guest-mode disabled', which means the SSID is configured but not being broadcast (it is a closed/hidden network), so it never appears in the visitor's scan list.",
+        "confidence": 68,
+        "osi_layer": "Layer 1/2 (Physical / Data Link)",
+        "evidence": [
+          "guest-mode disabled",
+          "authentication open"
+        ],
+        "next_command": "show running-config",
+        "fix_steps": [
+          "Review the SSID's security/authentication configuration for internal consistency.",
+          "Correct the wireless configuration (security mode, bridge-group, channel, or broadcast setting).",
+          "Have a test device attempt to associate and confirm it receives a valid DHCP address.",
+          "Document the corrected configuration for the AP/WLC template."
+        ],
+        "severity": "Low",
+        "concept": "SSID broadcast disabled (guest-mode not enabled)",
+        "needs_human_review": true,
+        "_source": "mock"
+      },
+      "ai_root_cause": "GUEST-WIFI has 'guest-mode disabled', which means the SSID is configured but not being broadcast (it is a closed/hidden network), so it never appears in the visitor's scan list.",
+      "ai_confidence": 68,
+      "reviewer_decision": "ACCEPT",
+      "corrected_diagnosis": null,
+      "reviewer_comments": null,
+      "reason_for_correction": null,
+      "final_diagnosis": "GUEST-WIFI has 'guest-mode disabled', which means the SSID is configured but not being broadcast (it is a closed/hidden network), so it never appears in the visitor's scan list."
+    }
+  }
+]
